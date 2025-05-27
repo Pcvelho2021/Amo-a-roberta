@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Te Amo 💖</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: black;
+      color: pink;
+      font-family: 'Arial', sans-serif;
+      user-select: none;
+    }
+
+    .te-amo {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 24px;
+      color: pink;
+      animation: cair linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes cair {
+      0% { top: -50px; }
+      100% { top: 110vh; }
+    }
+
+    .coracao {
+      position: absolute;
+      font-size: 30px;
+      animation: subir 2s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes subir {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-150px) scale(1.5);
+      }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Música Heaven -->
+<audio id="musica" loop>
+  <source src="https://drive.google.com/uc?export=download&id=1uA_29xdZ8U_W5yqEohs48cByIiXF5rXI" type="audio/mpeg">
+  Seu navegador não suporta áudio.
+</audio>
+
+<script>
+  const frases = [
+    "TE AMO 💖", "TE AMO MUITO ❤️", "TE AMO DEMAIS 😍", "TE AMO PRA SEMPRE 💋",
+    "MEU AMOR É TODO SEU 💘", "TE AMO COMO NUNCA AMEI 💞", "VOCÊ É TUDO PRA MIM 🌹",
+    "TE AMO 🌟", "TE AMO 💗", "TE AMO 💓", "TE AMO 💕", "TE AMO 💝",
+    "TE AMO INFINITO ♾️", "TE AMO 💑", "TE AMO 😘", "TE AMO 😍",
+    "TE AMO DE VERDADE 🥰", "SÓ TENHO OLHOS PRA VOCÊ 👀❤️", "TE AMO 🫶",
+    "TE AMO 💌", "TE AMO 💟", "TE AMO EM TODAS AS VIDAS ✨", "TE AMO HOJE E SEMPRE 🔥"
+  ];
+
+  function criarFrase() {
+    const span = document.createElement('span');
+    span.className = 'te-amo';
+    span.textContent = frases[Math.floor(Math.random() * frases.length)];
+    span.style.left = Math.random() * window.innerWidth + 'px';
+    span.style.animationDuration = (Math.random() * 10 + 10) + 's';
+
+    document.body.appendChild(span);
+
+    const intervalo = setInterval(() => {
+      const rect = span.getBoundingClientRect();
+      if (rect.top > window.innerHeight) {
+        clearInterval(intervalo);
+        span.remove();
+      }
+    }, 200);
+  }
+
+  setInterval(criarFrase, 200);
+
+  const musica = document.getElementById("musica");
+  let tocou = false;
+  document.addEventListener('click', (e) => {
+    if (!tocou) {
+      musica.play();
+      tocou = true;
+    }
+
+    const coracao = document.createElement('div');
+    coracao.className = 'coracao';
+    coracao.textContent = ['💖','❤️','💕','💘','💝'][Math.floor(Math.random() * 5)];
+    coracao.style.left = e.clientX + 'px';
+    coracao.style.top = e.clientY + 'px';
+
+    document.body.appendChild(coracao);
+
+    setTimeout(() => {
+      coracao.remove();
+    }, 2000);
+  });
+</script>
+
+</body>
+</html>
